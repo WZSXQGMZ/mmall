@@ -1,7 +1,10 @@
 package com.mmall.pojo;
 
+import lombok.EqualsAndHashCode;
+
 import java.util.Date;
 
+@EqualsAndHashCode(of = "id")
 public class Category {
     private Integer id;
 

@@ -20,7 +20,6 @@ public class RedisShardedPool {
     private static Integer maxIdle = Integer.parseInt(PropertiesUtil.getProperty("redis.max.idle", "10"));      // 在JedisPool中最大的空闲状态的Jedis实例的个数
 
     private static Integer minIdle = Integer.parseInt(PropertiesUtil.getProperty("redis.min.total", "2"));      // 在Jedispool中最小的空闲状态的Jedis实例的个数
-
     private static Boolean testOnBorrow = Boolean.parseBoolean(PropertiesUtil.getProperty("redis.test.borrow", "true"));    // 在borrow一个Jedis实例的时候，是否进行验证操作，如果赋值为true，则得到的Jedis实例肯定是可用的
 
     private static Boolean testOnReturn = Boolean.parseBoolean(PropertiesUtil.getProperty("redis.test.return", "false"));    // 在return一个Jedis实例的时候，是否进行验证操作，如果赋值为true，则放回JedisPool的Jedis实例肯定是可用的
@@ -67,16 +66,6 @@ public class RedisShardedPool {
 
     public static void returnBrokenResource(ShardedJedis jedis) {
         jedisPool.returnBrokenResource(jedis);
-    }
-
-    public static void main(String[] args) {
-        ShardedJedis jedis = jedisPool.getResource();
-
-        for (int i = 0; i < 10; ++i) {
-            jedis.set("key" + i, "value" + i);
-        }
-        returnResource(jedis);
-        System.out.println("program is end");
     }
 
 }
